@@ -5,6 +5,13 @@
 </div>
 
 ------------------------------------------------
+
+## Note installing on Windows
+
+Run `git config --global core.autocrlf false` in your terminal to fix end-of-line issues.
+
+------------------------------------------------
+
   PDF Annotations with Labels and Structure is software that makes it easy
   to collect a series of annotations associated with a PDF document. It was written
   specifically for annotating academic papers within the [Semantic Scholar](https://www.semanticscholar.org) corpus, but can be used with any collection of PDF documents.

@@ -14,6 +14,7 @@ from app.utils import StackdriverJsonFormatter
 from app import pre_serve
 
 IN_PRODUCTION = os.getenv("IN_PRODUCTION", "dev")
+USER = "slo-daxtra"
 
 CONFIGURATION_FILE = os.getenv(
     "PAWLS_CONFIGURATION_FILE", "/usr/local/src/skiff/app/api/config/configuration.json"
@@ -40,6 +41,7 @@ logging.getLogger("s3transfer").setLevel(logging.CRITICAL)
 # The annotation app requires a bit of set up.
 configuration = pre_serve.load_configuration(CONFIGURATION_FILE)
 
+print(configuration.output_directory)
 app = FastAPI()
 
 
@@ -54,34 +56,14 @@ def get_user_from_header(user_email: Optional[str]) -> Optional[str]:
     If the value isn't well formed, or the user isn't allowed, an exception is
     thrown.
     """
-    if "@" not in user_email:
-        raise HTTPException(403, "Forbidden")
-
-    if not user_is_allowed(user_email):
-        raise HTTPException(403, "Forbidden")
-
-    return user_email
+    return USER
 
 
 def user_is_allowed(user_email: str) -> bool:
     """
     Return True if the user_email is in the users file, False otherwise.
     """
-    try:
-        with open(configuration.users_file) as file:
-            for line in file:
-                entry = line.strip()
-                if user_email == entry:
-                    return True
-                # entries like "@allenai.org" mean anyone in that domain @allenai.org is granted access
-                if entry.startswith("@") and user_email.endswith(entry):
-                    return True
-    except FileNotFoundError:
-        logger.warning("file not found: %s", configuration.users_file)
-        pass
-
-    return False
-
+    return True
 
 def all_pdf_shas() -> List[str]:
     pdfs = glob.glob(f"{configuration.output_directory}/*/*.pdf")
@@ -89,13 +71,13 @@ def all_pdf_shas() -> List[str]:
 
 
 def update_status_json(status_path: str, sha: str, data: Dict[str, Any]):
-
-    with open(status_path, "r+") as st:
-        status_json = json.load(st)
-        status_json[sha] = {**status_json[sha], **data}
-        st.seek(0)
-        json.dump(status_json, st)
-        st.truncate()
+    pass
+    # with open(status_path, "r+") as st:
+    #     status_json = json.load(st)
+    #     status_json[sha] = {**status_json[sha], **data}
+    #     st.seek(0)
+    #     json.dump(status_json, st)
+    #     st.truncate()
 
 
 @app.get("/", status_code=204)
@@ -149,13 +131,8 @@ async def get_pdf_title(sha: str) -> Optional[str]:
 def set_pdf_comments(
     sha: str, comments: str = Body(...), x_auth_request_email: str = Header(None)
 ):
-    user = get_user_from_header(x_auth_request_email)
+    user = "bocharova.maiia@gmail.com"
     status_path = os.path.join(configuration.output_directory, "status", f"{user}.json")
-    exists = os.path.exists(status_path)
-
-    if not exists:
-        # Not an allocated user. Do nothing.
-        return {}
 
     update_status_json(status_path, sha, {"comments": comments})
     return {}
@@ -165,7 +142,7 @@ def set_pdf_comments(
 def set_pdf_junk(
     sha: str, junk: bool = Body(...), x_auth_request_email: str = Header(None)
 ):
-    user = get_user_from_header(x_auth_request_email)
+    user = "bocharova.maiia@gmail.com"
     status_path = os.path.join(configuration.output_directory, "status", f"{user}.json")
     exists = os.path.exists(status_path)
     if not exists:
@@ -180,12 +157,8 @@ def set_pdf_junk(
 def set_pdf_finished(
     sha: str, finished: bool = Body(...), x_auth_request_email: str = Header(None)
 ):
-    user = get_user_from_header(x_auth_request_email)
+    user = USER
     status_path = os.path.join(configuration.output_directory, "status", f"{user}.json")
-    exists = os.path.exists(status_path)
-    if not exists:
-        # Not an allocated user. Do nothing.
-        return {}
 
     update_status_json(status_path, sha, {"finished": finished})
     return {}
@@ -195,7 +168,7 @@ def set_pdf_finished(
 def get_annotations(
     sha: str, x_auth_request_email: str = Header(None)
 ) -> PdfAnnotation:
-    user = get_user_from_header(x_auth_request_email)
+    user = USER
     annotations = os.path.join(
         configuration.output_directory, sha, f"{user}_annotations.json"
     )
@@ -231,7 +204,7 @@ def save_annotations(
         is controlled by the Skiff Kubernetes cluster.
     """
     # Update the annotations in the annotation json file.
-    user = get_user_from_header(x_auth_request_email)
+    user = USER
     annotations_path = os.path.join(
         configuration.output_directory, sha, f"{user}_annotations.json"
     )
@@ -240,10 +213,6 @@ def save_annotations(
 
     # Update the annotation counts in the status file.
     status_path = os.path.join(configuration.output_directory, "status", f"{user}.json")
-    exists = os.path.exists(status_path)
-    if not exists:
-        # Not an allocated user. Do nothing.
-        return {}
 
     with open(annotations_path, "w+") as f:
         json.dump({"annotations": json_annotations, "relations": json_relations}, f)
@@ -293,7 +262,7 @@ def get_allocation_info(x_auth_request_email: str = Header(None)) -> Allocation:
     # meaning this would always fail. Instead, to smooth local development,
     # we always return all pdfs, essentially short-circuiting the allocation
     # mechanism.
-    user = get_user_from_header(x_auth_request_email)
+    user = USER
 
     status_dir = os.path.join(configuration.output_directory, "status")
     status_path = os.path.join(status_dir, f"{user}.json")
@@ -305,7 +274,7 @@ def get_allocation_info(x_auth_request_email: str = Header(None)) -> Allocation:
         papers = [PaperStatus.empty(sha, sha) for sha in all_pdf_shas()]
         response = Allocation(
             papers=papers,
-            hasAllocatedPapers=False
+            hasAllocatedPapers=True
         )
 
     else:
@@ -317,5 +286,5 @@ def get_allocation_info(x_auth_request_email: str = Header(None)) -> Allocation:
             papers.append(PaperStatus(**status))
 
         response = Allocation(papers=papers, hasAllocatedPapers=True)
-
+    # {"sample_pawls": {"annotations": 7, "relations": 1, "finished": true}}
     return response
