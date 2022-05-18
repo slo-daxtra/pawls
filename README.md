@@ -81,3 +81,13 @@ Try not to make mistakes when labelling relations, because they're harder to rem
 
 ## Output files
 The output is a file called with `slo-daxtra_annotations.json` inside each PDF file's folder. 
+
+
+## Troubleshooting
+
+### Unable to Render Document
+This should happen very rarely. Simply remove the folder from the dataset. 
+
+### Text is blank on the web interface
+One example is `121244_CV.pages_1_2`. This is probably a font problem on the browser, not with the file itself. You can have the PDF open and use it as a reference. If you are running PAWLS from another machine, download the same dataset from the installation section above
+
