@@ -38,13 +38,13 @@ Only label the content, and not the heading. For example, for education history,
 * `email`: Email address
 * `postcode`: Post code part of the address (avoid "〒" if possible)
 * `address_line`: Main address, excluding the postcode
-* `edu_start`: Full start date of an education history
+* `edu_start`: Full start date of an education history; if there is only one date, use this label
 * `edu_end`: Full end date of the education history (if available)
 * `edu_desc`: Description of the education history
-* `work_start`: Full start date of a work history
+* `work_start`: Full start date of a work history; if there is only one date, use this label
 * `work_end`:  Full end date of the work history (if available; and exclude things such as "同行を退社")
 * `work_desc`: Description of the work history
-* `qualif_start`: Full start date of a qualification history
+* `qualif_start`: Full start date of a qualification history; if there is only one date, use this label
 * `qualif_end`: Full end date of the qualification history (if available)
 * `qualif_descrtipion`: Description of the qualification history
 * `skill`: Skill item, including language
