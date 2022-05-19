@@ -106,6 +106,10 @@
         {
             "text": "Related",
             "color": "#D9E4DD"
+        },
+        {
+            "text": "Same",
+            "color": "#D9E4DD"
         }
     ],
     "users_file": "/users/allowed.txt"
