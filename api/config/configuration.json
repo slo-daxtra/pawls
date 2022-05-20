@@ -1,6 +1,10 @@
 {
     "output_directory": "/skiff_files/apps/pawls/papers/",
     "labels": [
+	{
+            "text": "current_date",
+            "color": "#E85443"
+        },
         {
             "text": "phonetic_name",
             "color": "#F5A25D"
@@ -12,6 +16,14 @@
         {
             "text": "given_name",
             "color": "#F5C25D"
+        },
+        {
+            "text": "nationality",
+            "color": "#42C5F5"
+        },
+        {
+            "text": "visa_status",
+            "color": "#4DC98F"
         },
         {
             "text": "place_of_birth",
@@ -29,24 +41,12 @@
             "text": "gender",
             "color": "#F08BBA"
         },
-        {
-            "text": "current_date",
-            "color": "#E85443"
-        },
-        {
-            "text": "tel_full",
+	{
+            "text": "phone",
             "color": "#578791"
         },
         {
-            "text": "tel_area_code",
-            "color": "#579191"
-        },
-        {
-            "text": "tel_body",
-            "color": "#577291"
-        },
-        {
-            "text": "tel_type",
+            "text": "phone_type",
             "color": "#576191"
         },
         {
@@ -62,36 +62,24 @@
             "color": "#70DDA3"
         },
         {
-            "text": "edu_start",
+            "text": "edu_date",
             "color": "#B8DE6F"
-        },
-        {
-            "text": "edu_end",
-            "color": "#9ADE6F"
         },
         {
             "text": "edu_desc",
-            "color": "#A8DDA8"
+            "color": "#9ADE6F"
         },
         {
-            "text": "work_start",
+            "text": "work_date",
             "color": "#B8DE6F"
         },
         {
-            "text": "work_end",
+            "text": "work_desc",
             "color": "#D7DE6F"
         },
         {
-            "text": "work_desc",
-            "color": "#D9E4DD"
-        },
-        {
-            "text": "qualif_start",
+            "text": "qualif_date",
             "color": "#CEEBFC"
-        },
-        {
-            "text": "qualif_end",
-            "color": "#CED8FC"
         },
         {
             "text": "qualif_desc",
@@ -100,15 +88,47 @@
         {
             "text": "skill",
             "color": "#98BF91"
+        },
+        {
+            "text": "hobby",
+            "color": "#B3BF91"
+        },
+        {
+            "text": "health",
+            "color": "#E0AC9F"
+        },
+        {
+            "text": "commute",
+            "color": "#A8DDA8"
+        },
+        {
+            "text": "dependant",
+            "color": "#7DB3B0"
+        },
+        {
+            "text": "spouse_have",
+            "color": "#7DA5B3"
+        },
+        {
+            "text": "spouse_support",
+            "color": "#7DB3B0"
+        },
+        {
+            "text": "statement",
+            "color": "#7D98B3"
+        },
+        {
+            "text": "wish",
+            "color": "#A884AD"
         }
     ],
     "relations": [
         {
-            "text": "Related",
+            "text": "related",
             "color": "#D9E4DD"
         },
         {
-            "text": "Same",
+            "text": "same",
             "color": "#D9E4DD"
         }
     ],
