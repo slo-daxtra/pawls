@@ -6,7 +6,7 @@ This documents describes the installation of PAWLS, an annotation tool for PDFs,
 ## Running PAWLS
 
 ### From a remote machine
-Simply open `http://192.168.2.54:8080` on your browser. The IP you see is currently Samuel's PC.
+Simply open `http://192.168.2.56:8080` on your browser.
 
 ### Installing it locally
 Please first have the latest version of [🐳Docker](https://www.docker.com/get-started/) installed on your local machine.
