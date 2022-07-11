@@ -5,8 +5,8 @@ This documents describes the installation of PAWLS, an annotation tool for PDFs,
 
 ## Running PAWLS
 
-### From a remote machine
-Simply open `http://192.168.2.56:8080` on your browser.
+### From the Daxtra office network
+Simply open `http://192.168.2.56:8080` on your browser. It is hosted on the CUDA box at `/home/izoom/pawls`.
 
 ### Installing it locally
 Please first have the latest version of [🐳Docker](https://www.docker.com/get-started/) installed on your local machine.
@@ -25,8 +25,7 @@ Only label the content, and not the heading. For example, for education history,
 
 * `current_date`: Date of last update for the CV (avoid "現在" if possible)
 * `phonetic_name`: Name in furigana
-* `family_name`: Self-explanatory
-* `given_name`: Self-explanatory
+* `full_name`: Full name that is not phonetic name (originally `family_name` and `given_name`)
 * `nationality`: Usually only for foreigners
 * `visa_status`: Usually only for foreigners
 * `place_of_birth`: Town or prefecture of origin
@@ -36,22 +35,22 @@ Only label the content, and not the heading. For example, for education history,
 * `phone`: Full phone number, including area code
 * `phone_type`: What kind of phone number it is (e.g. "電話", "携帯電話", etc.)
 * `email`: Email address
+* `email_type`: What kind of email address it is
+* `phonetic_address`: Address in furigana
 * `postcode`: Post code part of the address (avoid "〒" if possible)
 * `address_line`: Main address, excluding the postcode
+* `address_type`: What kind of address it is
 * `edu_date`: Date of an education history
 * `edu_desc`: Description of the education history
 * `work_date`: Date of a work history
 * `work_desc`: Description of the work history
 * `qualif_date`: Date of a qualification
 * `qualif_desc`: Description of the qualification history
-* `skill`: Skill item, including language
-* `hobby`: Hobby, inludes sports
+* `container`: Used for achievement, activity, health, hobby, note, reference, skill, statemen,s training, and wish (include heading when labelling)
 * `commute`: Commute time and closest station (please include headings)
 * `dependant`: Number of dependants (excluding spouse)
 * `spouse_have`: Whether the applicant has a spouse
 * `spouse_support`: Whether the applicant needs to financially support their spouse
-* `statement`: Personal statement
-* `wish`: The applicant's ideal role
    
 
 ## Data structure
